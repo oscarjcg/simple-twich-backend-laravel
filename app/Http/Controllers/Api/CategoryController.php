@@ -44,7 +44,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
 
-        $path = $request->file('image')->store('category');
+        $path = $request->file('image')->store('public/category');
 
         $category->name = $request->name;
         // Take generated image name
