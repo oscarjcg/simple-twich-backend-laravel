@@ -15,10 +15,19 @@ use Illuminate\Support\Facades\Route;
 
 
 
+//Auth::routes(['register' => false]);
 Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/categories', function () {
+    return "Categories";
+})->name('categories');
+
+Route::get('/channels', function () {
+    return "Channels";
+})->name('channels');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

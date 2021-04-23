@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="architect-ui/assets/scripts/main.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('architect-ui/main.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -45,7 +47,7 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-                            
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -76,7 +78,15 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="flex-container">
+                <div class="siderbar-container">
+                    @include('dashboard.common.sidebar')
+                </div>
+                <div class="content-container">
+                    @yield('content')
+                </div>
+            </div>
+
         </main>
     </div>
 </body>

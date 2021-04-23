@@ -6,3 +6,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.flex-container {
+    display: flex;
+}
+
+.sidebar-container {
+    width: 20%;
+}
+
+.content-container {
+    width: 80%;
+}
