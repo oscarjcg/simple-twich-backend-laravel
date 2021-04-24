@@ -9,13 +9,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('categories') }}">
+                <a href="{{ route('categories.index') }}">
                     <i class="metismenu-icon pe-7s-rocket"></i>
                     Categories
                 </a>
             </li>
             <li>
-                <a href="{{ route('channels') }}">
+                <a href="{{ route('channels.index') }}">
                     <i class="metismenu-icon pe-7s-rocket"></i>
                     Channels
                 </a>
