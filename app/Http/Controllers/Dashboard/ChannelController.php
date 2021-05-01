@@ -27,7 +27,7 @@ class ChannelController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.channel.create');
     }
 
     /**

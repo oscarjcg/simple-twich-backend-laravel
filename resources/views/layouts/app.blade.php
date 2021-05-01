@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script type="text/javascript" src="architect-ui/assets/scripts/main.js"></script>
+    <script type="text/javascript" src={{ asset('architect-ui/assets/scripts/main.js') }}></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -43,6 +43,12 @@ class ChannelController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'image' => 'required',
+            'preview' => 'required',
+        ]);
+
         $channel = new Channel();
 
         $pathImage = $request->file('image')->store('public/channel');

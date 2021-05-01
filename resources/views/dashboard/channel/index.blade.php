@@ -32,7 +32,7 @@
 <script>
     $(document).ready(function() {
         $('#channels-table').DataTable({
-            "paging": false
+            "paging": true
         } );
     } );
 </script>

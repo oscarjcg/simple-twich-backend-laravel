@@ -42,6 +42,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'image' => 'required'
+        ]);
+
         $category = new Category();
 
         $path = $request->file('image')->store('public/category');
