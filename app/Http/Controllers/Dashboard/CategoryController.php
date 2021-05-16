@@ -57,9 +57,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category)
     {
-        //
+        $category = Category::find($category);
+        return view('dashboard.category.edit', ['category' => $category]);
     }
 
     /**

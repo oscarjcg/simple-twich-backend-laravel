@@ -79,9 +79,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $category)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'image' => ''
+        ]);
 
+        $category = Category::find($category);
+        $category->name = $request->name;
+
+        if($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/category');
+            // Take generated image name
+            $category->image = substr($path, strrpos($path, '/') + 1);
+        }
+
+        $category->save();
+
+        return response()->json($request);
     }
 
     /**
