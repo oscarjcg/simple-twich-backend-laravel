@@ -82,9 +82,11 @@
 
         <main class="py-4">
             <div class="flex-container">
-                <div class="siderbar-container">
-                    @include('dashboard.common.sidebar')
-                </div>
+                @if (Auth::check())
+                    <div class="siderbar-container">
+                        @include('dashboard.common.sidebar')
+                    </div>
+                @endif
                 <div class="content-container">
                     @yield('content')
                 </div>

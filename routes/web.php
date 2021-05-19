@@ -19,13 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 //Auth::routes(['register' => false]);
 Auth::routes();
-
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
-Route::resource('channels', ChannelController::class);
-Route::resource('categories', CategoryController::class);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('channels', ChannelController::class)->middleware('auth');
+Route::resource('categories', CategoryController::class)->middleware('auth');;
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
