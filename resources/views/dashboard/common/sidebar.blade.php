@@ -50,6 +50,14 @@
                 </a>
             </li>
 
+            <li class="app-sidebar__heading">Comments</li>
+
+            <li>
+                <a href="{{ route('comments.index') }}">
+                    <i class="metismenu-icon pe-7s-rocket"></i>
+                    Comments
+                </a>
+            </li>
 
         </ul>
     </div>

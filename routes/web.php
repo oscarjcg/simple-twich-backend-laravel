@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ChannelController;
+use App\Http\Controllers\Dashboard\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ Route::get('/', function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('channels', ChannelController::class)->middleware('auth');
-Route::resource('categories', CategoryController::class)->middleware('auth');;
+Route::resource('categories', CategoryController::class)->middleware('auth');
+Route::resource('comments', CommentController::class)->middleware('auth');
 
 
