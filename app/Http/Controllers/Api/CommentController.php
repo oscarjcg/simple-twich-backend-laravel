@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CommentController extends Controller
 {
@@ -51,6 +52,11 @@ class CommentController extends Controller
         $comment->comment = $request->comment;
 
         $comment->save();
+
+        // Send event new message to dispacher
+        $response = Http::post('http://st-node.oscarcatarigutierrez.com:3000/new-message', [
+            'channel_id' => 1
+        ]);
 
         return response()->json($comment);
     }
