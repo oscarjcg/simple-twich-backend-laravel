@@ -31,5 +31,7 @@ Route::prefix('comments')->group(function () {
     Route::get('/', [CommentController::class, 'index']);
     Route::post('/', [CommentController::class, 'store']);
     Route::get('/{channel_id}', [CommentController::class, 'show']);
+    Route::get('/name/{channel_name}', [CommentController::class, 'showByName']);
     Route::delete('/{channel_id}', [CommentController::class, 'destroy']);
+
 });

@@ -75,6 +75,14 @@ class CommentController extends Controller
         return response()->json($comments);
     }
 
+    public function showByName($channel_name)
+    {
+        $channel = Channel::find($channel_name);
+        $comments = $channel->comments;
+
+        return response()->json($comments);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
