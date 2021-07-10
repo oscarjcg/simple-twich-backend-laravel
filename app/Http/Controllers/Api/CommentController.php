@@ -77,7 +77,7 @@ class CommentController extends Controller
 
     public function showByName($channel_name)
     {
-        $channel = Channel::find($channel_name);
+        $channel = Channel::where('name', $channel_name)->first();
         $comments = $channel->comments;
 
         return response()->json($comments);
