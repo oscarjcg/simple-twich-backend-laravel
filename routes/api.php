@@ -23,6 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('channels', ChannelController::class);
+Route::get('/channels/name/{channel_name}', [ChannelController::class, 'showByName']);
+
+
 
 Route::prefix('comments')->group(function () {
     Route::get('/', [CommentController::class, 'index']);

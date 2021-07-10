@@ -68,9 +68,16 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show($channel)
     {
-        $channel = Channel::where('id', $id)->first();
+        $channel = Channel::where('id', $channel)->first();
+
+        return response()->json($channel);
+    }
+
+    public function showByName($channel_name)
+    {
+        $channel = Channel::where('name', $channel_name)->first();
 
         return response()->json($channel);
     }
@@ -82,7 +89,7 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $channel)
     {
         //
     }
@@ -93,9 +100,9 @@ class ChannelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($channel)
     {
-        $channel = Channel::find($id);
+        $channel = Channel::find($channel);
         $channel->delete();
 
         return response()->json($channel);
