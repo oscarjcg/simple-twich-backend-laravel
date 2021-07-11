@@ -72,12 +72,36 @@ class ChannelController extends Controller
     {
         $channel = Channel::where('id', $channel)->first();
 
+        // Base url
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $url = "https://";
+        else
+            $url = "http://";
+        // Append the host(domain name, ip) to the URL.
+        $url.= $_SERVER['HTTP_HOST'];
+
+        // Add url to images
+        $channel->image = $url . "/storage/channel/" . $channel->image;
+        $channel->preview = $url . "/storage/channel/" . $channel->preview;
+
         return response()->json($channel);
     }
 
     public function showByName($channel_name)
     {
         $channel = Channel::where('name', $channel_name)->first();
+
+        // Base url
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $url = "https://";
+        else
+            $url = "http://";
+        // Append the host(domain name, ip) to the URL.
+        $url.= $_SERVER['HTTP_HOST'];
+
+        // Add url to images
+        $channel->image = $url . "/storage/channel/" . $channel->image;
+        $channel->preview = $url . "/storage/channel/" . $channel->preview;
 
         return response()->json($channel);
     }
