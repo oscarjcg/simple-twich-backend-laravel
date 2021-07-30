@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ChannelController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,8 @@ Route::prefix('comments')->group(function () {
     Route::get('/name/{channel_name}', [CommentController::class, 'showByName']);
     Route::delete('/{channel_id}', [CommentController::class, 'destroy']);
 
+});
+
+Route::prefix('search/{name}')->group(function () {
+    Route::get('/', [SearchController::class, 'index']);
 });
