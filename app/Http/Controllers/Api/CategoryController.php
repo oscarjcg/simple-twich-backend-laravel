@@ -65,6 +65,24 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
+    public function showByName($category_name)
+    {
+        $category = Category::where('name', $category_name)->first();
+
+        // Base url
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $url = "https://";
+        else
+            $url = "http://";
+        // Append the host(domain name, ip) to the URL.
+        $url.= $_SERVER['HTTP_HOST'];
+
+        // Add url to images
+        $category->image = $url . "/storage/category/" . $category->image;
+
+        return response()->json($category);
+    }
+
     public function show($id)
     {
         $category = Category::where('id', $id)->first();
@@ -117,6 +135,21 @@ class CategoryController extends Controller
     public function channelsByName($name) {
         $category = Category::where('name', $name)->first();
 
-        return response()->json($category->channels()->get());
+        $channels = $category->channels()->get();
+        // Base url
+        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+            $url = "https://";
+        else
+            $url = "http://";
+        // Append the host(domain name, ip) to the URL.
+        $url.= $_SERVER['HTTP_HOST'];
+
+        // Add url to images
+        foreach ($channels as $channel) {
+            $channel->image = $url . "/storage/channel/" . $channel->image;
+            $channel->preview = $url . "/storage/channel/" . $channel->preview;
+        }
+
+        return response()->json($channels);
     }
 }

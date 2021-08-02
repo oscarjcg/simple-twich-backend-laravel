@@ -26,6 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('categories', CategoryController::class);
 Route::prefix('categories')->group(function () {
     Route::get('/{name}/channels', [CategoryController::class, 'channelsByName']);
+    Route::get('/name/{category_name}', [CategoryController::class, 'showByName']);
 });
 
 // Channel
