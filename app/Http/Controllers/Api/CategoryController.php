@@ -113,4 +113,10 @@ class CategoryController extends Controller
 
         return response()->json($category);
     }
+
+    public function channelsByName($name) {
+        $category = Category::where('name', $name)->first();
+
+        return response()->json($category->channels()->get());
+    }
 }

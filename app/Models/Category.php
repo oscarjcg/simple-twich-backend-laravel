@@ -9,5 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    public function channels() {
+        return $this->belongsToMany(Channel::class);
+    }
 
 }

@@ -22,12 +22,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Category
 Route::apiResource('categories', CategoryController::class);
+Route::prefix('categories')->group(function () {
+    Route::get('/{name}/channels', [CategoryController::class, 'channelsByName']);
+});
+
+// Channel
 Route::apiResource('channels', ChannelController::class);
 Route::get('/channels/name/{channel_name}', [ChannelController::class, 'showByName']);
 
 
 
+// Comment
 Route::prefix('comments')->group(function () {
     Route::get('/', [CommentController::class, 'index']);
     Route::post('/', [CommentController::class, 'store']);
@@ -37,6 +44,7 @@ Route::prefix('comments')->group(function () {
 
 });
 
+// Search
 Route::prefix('search/{name}')->group(function () {
     Route::get('/', [SearchController::class, 'index']);
 });
