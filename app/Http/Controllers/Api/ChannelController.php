@@ -15,7 +15,7 @@ class ChannelController extends Controller
      */
     public function index()
     {
-        $channels = Channel::all();
+        $channels = Channel::orderBy('id', 'DESC')->get();
 
         // Base url
         if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
