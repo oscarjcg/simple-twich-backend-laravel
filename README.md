@@ -46,6 +46,8 @@ Ejemplo: https://backend-simple-twitch.oscarcatarigutierrez.com/api/categories
     * Execute composer: `./vendor/bin/sail composer`
     * Execute npm: `./vendor/bin/sail npm`
 * Web: http://localhost/
+    * Register new user: `http://localhost/register`
+    * Enable register in `routes -> auth.php -> Uncomment code`
 * PhpMyAdmin (mysql): http://localhost:8080/
 
 **Entorno de desarrollo**:
