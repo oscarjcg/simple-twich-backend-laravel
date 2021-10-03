@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-Auth::routes(['register' => false]);
-//Auth::routes();
 /*
 Route::get('/', function () {
     return view('welcome');
@@ -28,8 +24,13 @@ Route::get('/', function () {
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
 Route::resource('channels', ChannelController::class)->middleware('auth');
 Route::resource('categories', CategoryController::class)->middleware('auth');
 Route::resource('comments', CommentController::class)->middleware('auth');
 
-
+require __DIR__.'/auth.php';

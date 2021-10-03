@@ -38,9 +38,16 @@ Ejemplo: https://backend-simple-twitch.oscarcatarigutierrez.com/api/categories
 * Pendiente                
  ```
 
-
+**DockerEnvironment:** Laravel sail
+* Commands (Root directory):
+    * Start local environment: `./vendor/bin/sail up -d`
+    * Stop local environment: `./vendor/bin/sail stop`
+    * Execute php: `./vendor/bin/sail php`
+    * Execute composer: `./vendor/bin/sail composer`
+    * Execute npm: `./vendor/bin/sail npm`
+* Web: http://localhost/
+* PhpMyAdmin (mysql): http://localhost:8080/
 
 **Entorno de desarrollo**:
 * **Sistema operativo:** macOS BigSur 11.4
-* **Vagrant (Homestead):**  2.2.14
-
+* **Docker (Laravel sail):**  2.2.14
