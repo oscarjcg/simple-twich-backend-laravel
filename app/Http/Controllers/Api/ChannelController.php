@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Channel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ChannelController extends Controller
 {
@@ -17,19 +18,10 @@ class ChannelController extends Controller
     {
         $channels = Channel::orderBy('id', 'DESC')->get();
 
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
-
-
         // Add url to images
         foreach ($channels as $channel) {
-            $channel->image = $url . "/storage/channel/" . $channel->image;
-            $channel->preview = $url . "/storage/channel/" . $channel->preview;
+            $channel->image = Storage::disk('s3')->url('public/channel/'. $channel->image);
+            $channel->preview = Storage::disk('s3')->url('public/channel/'. $channel->preview);
         }
 
         return response()->json($channels);
@@ -51,8 +43,11 @@ class ChannelController extends Controller
 
         $channel = new Channel();
 
-        $pathImage = $request->file('image')->store('public/channel');
-        $pathPreview = $request->file('preview')->store('public/channel');
+        $pathImage = $request->file('image')->store('public/channel', 's3');
+        Storage::disk('s3')->setVisibility($pathImage,'public');
+        $pathPreview = $request->file('preview')->store('public/channel', 's3');
+        Storage::disk('s3')->setVisibility($pathPreview,'public');
+
         $channel->name = $request->name;
         // Take generated image name
         $channel->image = substr($pathImage, strrpos($pathImage, '/') + 1);
@@ -72,17 +67,9 @@ class ChannelController extends Controller
     {
         $channel = Channel::where('id', $channel)->first();
 
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
-
         // Add url to images
-        $channel->image = $url . "/storage/channel/" . $channel->image;
-        $channel->preview = $url . "/storage/channel/" . $channel->preview;
+        $channel->image = Storage::disk('s3')->url('public/channel/'. $channel->image);
+        $channel->preview = Storage::disk('s3')->url('public/channel/'. $channel->preview);
 
         return response()->json($channel);
     }
@@ -91,17 +78,9 @@ class ChannelController extends Controller
     {
         $channel = Channel::where('name', $channel_name)->first();
 
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
-
         // Add url to images
-        $channel->image = $url . "/storage/channel/" . $channel->image;
-        $channel->preview = $url . "/storage/channel/" . $channel->preview;
+        $channel->image = Storage::disk('s3')->url('public/channel/'. $channel->image);
+        $channel->preview = Storage::disk('s3')->url('public/channel/'. $channel->preview);
 
         return response()->json($channel);
     }

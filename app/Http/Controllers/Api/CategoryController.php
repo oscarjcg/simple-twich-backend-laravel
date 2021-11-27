@@ -18,21 +18,12 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
 
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
-
         // Add url to images
         foreach ($categories as $category)
-            $category->image = $url . "/storage/category/" . $category->image;
+            $category->image = Storage::disk('s3')->url('public/category/'. $category->image);
 
         return response()->json($categories);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -49,7 +40,8 @@ class CategoryController extends Controller
 
         $category = new Category();
 
-        $path = $request->file('image')->store('public/category');
+        $path = $request->file('image')->store('public/category', 's3');
+        Storage::disk('s3')->setVisibility($path,'public');
 
         $category->name = $request->name;
         // Take generated image name
@@ -69,16 +61,8 @@ class CategoryController extends Controller
     {
         $category = Category::where('name', $category_name)->first();
 
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
-
         // Add url to images
-        $category->image = $url . "/storage/category/" . $category->image;
+        $category->image = Storage::disk('s3')->url('public/category/'. $category->image);
 
         return response()->json($category);
     }
@@ -108,7 +92,8 @@ class CategoryController extends Controller
         $category->name = $request->name;
 
         if($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/category');
+            $path = $request->file('image')->store('public/category', 's3');
+            Storage::disk('s3')->setVisibility($path,'public');
             // Take generated image name
             $category->image = substr($path, strrpos($path, '/') + 1);
         }
@@ -136,18 +121,11 @@ class CategoryController extends Controller
         $category = Category::where('name', $name)->first();
 
         $channels = $category->channels()->get();
-        // Base url
-        if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-            $url = "https://";
-        else
-            $url = "http://";
-        // Append the host(domain name, ip) to the URL.
-        $url.= $_SERVER['HTTP_HOST'];
 
         // Add url to images
         foreach ($channels as $channel) {
-            $channel->image = $url . "/storage/channel/" . $channel->image;
-            $channel->preview = $url . "/storage/channel/" . $channel->preview;
+            $channel->image = Storage::disk('s3')->url('public/channel/'. $channel->image);
+            $channel->preview = Storage::disk('s3')->url('public/channel/'. $channel->preview);
         }
 
         return response()->json($channels);
