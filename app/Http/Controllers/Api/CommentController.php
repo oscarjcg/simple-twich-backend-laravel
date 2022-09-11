@@ -54,7 +54,7 @@ class CommentController extends Controller
         $comment->save();
 
         // Send event new message to dispacher
-        $response = Http::post('http://st-node.oscarcatarigutierrez.com:3000/new-message', [
+        $response = Http::post('http://st-node.oscarcatarigutierrez.com/new-message', [
             'channel_id' => $request->channel_id
         ]);
 
